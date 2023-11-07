@@ -4,7 +4,7 @@ package com.upc.ejercicio.pc.book.api.rest;
 import com.upc.ejercicio.pc.book.api.dto.BookDTO;
 import com.upc.ejercicio.pc.book.api.dto.LoanDTO;
 import com.upc.ejercicio.pc.book.api.request.CreateLoanRequest;
-import com.upc.ejercicio.pc.book.api.respone.LoanResponse;
+import com.upc.ejercicio.pc.book.api.response.LoanResponse;
 import com.upc.ejercicio.pc.book.domain.model.entity.Book;
 import com.upc.ejercicio.pc.book.domain.model.entity.Loan;
 import com.upc.ejercicio.pc.book.domain.service.BookService;

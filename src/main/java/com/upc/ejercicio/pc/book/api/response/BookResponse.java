@@ -1,4 +1,4 @@
-package com.upc.ejercicio.pc.book.api.respone;
+package com.upc.ejercicio.pc.book.api.response;
 
 import lombok.Data;
 

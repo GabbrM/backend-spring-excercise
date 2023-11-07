@@ -2,7 +2,7 @@ package com.upc.ejercicio.pc.book.api.rest;
 
 import com.upc.ejercicio.pc.book.api.dto.BookDTO;
 import com.upc.ejercicio.pc.book.api.request.BookRequest;
-import com.upc.ejercicio.pc.book.api.respone.BookResponse;
+import com.upc.ejercicio.pc.book.api.response.BookResponse;
 import com.upc.ejercicio.pc.book.domain.model.entity.Book;
 import com.upc.ejercicio.pc.book.domain.service.BookService;
 import org.modelmapper.ModelMapper;
