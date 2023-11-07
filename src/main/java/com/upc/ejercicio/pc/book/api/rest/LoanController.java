@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/loans")
+@RequestMapping("/api/library/v1")
 public class LoanController {
     private final LoanService loanService;
     private final BookService bookService;
@@ -33,7 +33,7 @@ public class LoanController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping
+    @GetMapping("/loans")
     public ResponseEntity<List<LoanResponse>> getAllLoans() {
         List<Loan> loans = loanService.getAllLoans();
         List<LoanResponse> loanResponses = loans.stream()
@@ -42,14 +42,14 @@ public class LoanController {
         return ResponseEntity.ok(loanResponses);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/loans/{id}")
     public ResponseEntity<LoanResponse> getLoanById(@PathVariable("id") Long id) {
         Loan loan = loanService.getLoanById(id);
         LoanResponse loanResponse = modelMapper.map(loan, LoanResponse.class);
         return ResponseEntity.ok(loanResponse);
     }
 
-    @PostMapping
+    @PostMapping("/loans")
     public ResponseEntity<LoanResponse> createLoan(@Valid @RequestBody CreateLoanRequest loanRequest) {
         BookDTO bookDTO = bookService.getBookDTOById(loanRequest.getRequestedBookId());
         Book book = modelMapper.map(bookDTO, Book.class);
@@ -65,7 +65,7 @@ public class LoanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(loanResponse);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/loans/{id}")
     public ResponseEntity<LoanResponse> updateLoan(@PathVariable("id") Long id, @Valid @RequestBody CreateLoanRequest loanRequest) {
         LoanDTO loanDTO = modelMapper.map(loanRequest, LoanDTO.class);
         loanDTO.setBookId(loanRequest.getRequestedBookId());
@@ -73,7 +73,7 @@ public class LoanController {
         LoanResponse loanResponse = modelMapper.map(updatedLoan, LoanResponse.class);
         return ResponseEntity.ok(loanResponse);
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/loans/{id}")
     public ResponseEntity<Void> deleteLoan(@PathVariable("id") Long id) {
         loanService.deleteLoan(id);
         return ResponseEntity.noContent().build();

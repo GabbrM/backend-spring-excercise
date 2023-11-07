@@ -41,26 +41,20 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Loan createLoan(LoanDTO loanDTO) {
         Loan loan = modelMapper.map(loanDTO, Loan.class);
-
-        // Obtener el libro correspondiente al ID proporcionado
         BookDTO bookDTO = bookService.getBookDTOById(loanDTO.getBookId());
         Book book = convertToBook(bookDTO);
-
-        // Asignar el libro al préstamo
         loan.setBook(book);
-
-        // Guardar el préstamo en la base de datos
         return loanRepository.save(loan);
     }
     @Override
     public Loan getLoanById(Long id) {
-        // Lógica para obtener un préstamo por su ID usando el repositorio
+
         return loanRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Loan not found with id: " + id));
     }
 
     @Override
     public List<Loan> getAllLoans() {
-        // Lógica para obtener todos los préstamos usando el repositorio
+
         return loanRepository.findAll();
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/library/v1")
 public class BookController {
     private final BookService bookService;
     private final ModelMapper modelMapper;
@@ -27,7 +27,7 @@ public class BookController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping
+    @GetMapping("/books")
     public ResponseEntity<List<BookResponse>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
         List<BookResponse> bookResponses = books.stream()
@@ -36,14 +36,14 @@ public class BookController {
         return ResponseEntity.ok(bookResponses);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/books/{id}")
     public ResponseEntity<BookResponse> getBookById(@PathVariable("id") Long id) {
         Book book = bookService.getBookById(id);
         BookResponse bookResponse = modelMapper.map(book, BookResponse.class);
         return ResponseEntity.ok(bookResponse);
     }
 
-    @PostMapping
+    @PostMapping("/books")
     public ResponseEntity<BookResponse> createBook(@Valid @RequestBody BookRequest bookRequest) {
         BookDTO bookDTO = modelMapper.map(bookRequest, BookDTO.class);
         Book createdBook = bookService.createBook(bookDTO);
@@ -51,7 +51,7 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookResponse);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/books/{id}")
     public ResponseEntity<BookResponse> updateBook(@PathVariable("id") Long id, @Valid @RequestBody BookRequest bookRequest) {
         BookDTO bookDTO = modelMapper.map(bookRequest, BookDTO.class);
         Book updatedBook = bookService.updateBook(id, bookDTO);
@@ -59,7 +59,7 @@ public class BookController {
         return ResponseEntity.ok(bookResponse);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/books/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
